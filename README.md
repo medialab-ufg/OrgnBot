@@ -12,7 +12,7 @@ You will need `npm` and thus Node v.7.x or greater installed. See instructions [
 
 ```
 cd _cloned/repository/path_
-sudo npm install
+npm install
 ```
 
 *sudo is not necessary on Windows.
@@ -27,7 +27,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`id`))
 ```
 
-Copy and edit _config\_sample.js_ to set up your MySQL and [TelegramBot API](https://core.telegram.org/bots/api#authorizing-your-bot) data. Once you're done, rename it to _config.js_ 
+Copy and edit _config\_sample.js_ to set up your MySQL and [TelegramBot API](https://core.telegram.org/bots/api#authorizing-your-bot) data (This is important, otherwise you won't be chating with a valid bot). Once you're done, rename it to _config.js_. 
 
 ## Run server
 ```

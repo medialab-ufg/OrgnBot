@@ -23,6 +23,11 @@ telegraf.use(commandArgsMiddleware()); // For quering commands parameters.
 // Starting the Bot
 telegraf.command('start', (ctx) => ctx.reply('Bot started.'));
 
+// Say hello
+telegraf.hears('Hi!', (ctx) => {
+  return ctx.reply('Hello human!')
+})
+
 // ======================================================================
 // Start Polling
 telegraf.startPolling(30)
