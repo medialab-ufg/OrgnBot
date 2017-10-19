@@ -27,7 +27,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`id`))
 ```
 
-Copy and edit _config\_sample.js_ to set up your MySQL and TelegramBot API data. Once you're done, rename it to _config.js_ 
+Copy and edit _config\_sample.js_ to set up your MySQL and [TelegramBot API](https://core.telegram.org/bots/api#authorizing-your-bot) data. Once you're done, rename it to _config.js_ 
 
 ## Run server
 ```
