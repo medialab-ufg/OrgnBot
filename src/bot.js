@@ -6,10 +6,10 @@ const config = require('./config');
 const telegraf = new Telegraf(config.telegraf_token)
 
 const session = new MySQLSession({
-  host: 'localhost',
-  user: 'root',
-  password: 'mateus2602',
-  database: 'telegraf_sessions'
+  host: config.database_host,
+  user: config.database_user,
+  password: config.database_password,
+  database: config.database_name
 })
 
 telegraf.use(session.middleware())
