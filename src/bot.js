@@ -43,26 +43,18 @@ bot.hears(match('hi'), (ctx) => {
 });
 
 // Settings commands-----------------------------------------------------
-// Call menu for changing the language
+// Changing the language
 bot.hears(match('language'), (ctx) => {
+
+	const languageMenu = Telegraf.Extra
+		  .markdown()
+		  .markup((m) => m.inlineKeyboard([
+		    m.callbackButton('🇺🇸 ' + ctx.i18n.t('english'), 'en'),
+				m.callbackButton('🇧🇷' + ctx.i18n.t('portuguese'), 'pt')
+		  ]));
+
   ctx.reply(ctx.i18n.t('languageInstr'), languageMenu);
 });
-
-// Create list
-/*bot.command('/new', (ctx) => {
-	const type = ctx.state.command.args[0];
-	const name = ctx.state.command.args[1];
-	console.log(ctx)
-  return ctx.reply('New ' + type + ' of ' + name)
-});*/
-
-// MENUS ------------------------------------------------------------------
-const languageMenu = Telegraf.Extra
-	  .markdown()
-	  .markup((m) => m.inlineKeyboard([
-	    m.callbackButton('🇺🇸 English', 'en'),
-			m.callbackButton('🇧🇷 Portuguese', 'pt')
-	  ]));
 
 bot.action('pt', (ctx) => {
 	ctx.i18n.defaultLanguage = 'pt';
@@ -75,6 +67,33 @@ bot.action('en', (ctx) => {
 	ctx.i18n.locale('en');
 	ctx.reply(ctx.i18n.t('localeGreeting'))
 });
+
+// Seeing available options
+bot.hears(match('options'), (ctx) => {
+
+	const optionsMenu = Telegraf.Extra
+		  .markdown()
+		  .markup((m) => m.keyboard([
+		    m.callbackButton(ctx.i18n.t('language'), 'language'),
+				m.callbackButton(ctx.i18n.t('options'), 'options'),
+				m.callbackButton(ctx.i18n.t('about'), 'about'),
+		  ]).resize());
+
+	ctx.reply(ctx.i18n.t('optionsInstr'), optionsMenu);
+
+});
+
+// Prints about
+bot.hears(match('about'), (ctx) => {
+	ctx.reply(ctx.i18n.t('aboutMessage'))
+});
+// Create list
+/*bot.command('/new', (ctx) => {
+	const type = ctx.state.command.args[0];
+	const name = ctx.state.command.args[1];
+	console.log(ctx)
+  return ctx.reply('New ' + type + ' of ' + name)
+});*/
 
 // ======================================================================
 

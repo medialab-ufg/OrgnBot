@@ -3,5 +3,11 @@
 	"helloHuman": "Hello Human!",
 	"hi": "Hi!",
 	"language": "language",
-	"languageInstr": "Choose your language"
+	"languageInstr": "Choose your language",
+	"english": "English",
+	"portuguese": "Portuguese",
+	"options": "options",
+		"optionsInstr": "These are the options that the bot has:",
+	"about": "about",
+	"aboutMessage": "Message explaining the bot idea."
 }

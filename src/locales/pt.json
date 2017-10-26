@@ -3,5 +3,11 @@
 	"helloHuman": "Olá Humano!",
 	"hi": "Olá!",
 	"language": "linguagem",
-	"languageInstr": "Escolha sua linguagem"
+	"languageInstr": "Escolha sua linguagem",
+	"english": "Inglês",
+	"portuguese": "Português",
+	"options": "opções",
+	"optionsInstr": "Estas são as opções que este bot fornece:",
+	"about": "sobre",
+	"aboutMessage": "Mensagem explicando a ideia do Bot."
 }
