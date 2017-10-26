@@ -1,4 +1,4 @@
-# **ORGN BOT**: a Telegram Bot made for activists, community organizers and social movements. 
+# **ORGN BOT**: a Telegram Bot made for activists, community organizers and social movements.
 
 ## Status
 Under development!
@@ -15,8 +15,6 @@ cd _cloned/repository/path_
 npm install
 ```
 
-*sudo is not necessary on Windows.
-
 ## Setup
 You should create a MySQL table named sessions in your database.
 
@@ -27,7 +25,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`id`))
 ```
 
-Copy and edit _config\_sample.js_ to set up your MySQL and [TelegramBot API](https://core.telegram.org/bots/api#authorizing-your-bot) data (This is important, otherwise you won't be chating with a valid bot). Once you're done, rename it to _config.js_. 
+Copy and edit _config\_sample.js_ to set up your MySQL and [TelegramBot API](https://core.telegram.org/bots/api#authorizing-your-bot) data (This is important, otherwise you won't be chating with a valid bot). Once you're done, rename it to _config.js_.
 
 ## Run server
 ```
@@ -35,7 +33,3 @@ cd _cloned/repository/path_
 npm start
 ```
 The start script simply executes the bot.js file inside src. You can change this initialization on _package.json_
-
-
-
-
