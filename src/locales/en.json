@@ -1,13 +1,23 @@
 {
-	"localeGreeting": "Hi there! Now I speak english :)",
 	"helloHuman": "Hello Human!",
 	"hi": "Hi!",
+
+	"localeGreeting": "Hi there! Now I speak english :)",
 	"language": "language",
 	"languageInstr": "Choose your language",
 	"english": "English",
 	"portuguese": "Portuguese",
-	"options": "options",
-		"optionsInstr": "These are the options that the bot has:",
+
+	"listInstr": "Choose which action do you wish to do with a list:",
+	"createList": "Create a list",
+	"addItem": "Add item",
+	"removeItem": "Remove item",
+	"showList": "Show list contents",
+	"createListInstr": "Cool. Which name you'll give to the list?",
+	"createListSuccess": "Great. I've just created a list named ",
+	"createListCancel": "Ok, canceling list creation!",
+	"cancel": "Cancel",
+
 	"about": "about",
 	"aboutMessage": "Message explaining the bot idea."
 }

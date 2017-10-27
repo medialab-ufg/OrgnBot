@@ -33,3 +33,10 @@ cd _cloned/repository/path_
 npm start
 ```
 The start script simply executes the bot.js file inside src. You can change this initialization on _package.json_
+
+# Usage
+Above follow the list of commands currently available:
+```
+/language - Offers an inline keyboard with language options.
+/options - Offers a
+```

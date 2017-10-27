@@ -1,14 +1,18 @@
 const Telegraf = require('telegraf');
+const { Extra, Markup } = Telegraf;
 const I18n = require('telegraf-i18n');
 const { match } = require('telegraf-i18n')
 const path = require('path');
 const MySQLSession = require('../lib/session');
 const commandArgsMiddleware = require('../lib/commandArgs');
+const TelegrafFlow = require('telegraf-flow');
+const { Scene, enter, leave } = TelegrafFlow;
 const config = require('./config');
 
 // Global variables
 const bot = new Telegraf(config.telegraf_token);
 
+// Local database setting
 const session = new MySQLSession({
 	host: config.database_host,
 	user: config.database_user,
@@ -16,6 +20,7 @@ const session = new MySQLSession({
 	database: config.database_name
 });
 
+// Language settings
 const i18n = new I18n({
   defaultLanguage: 'en',
   allowMissing: true,
@@ -23,10 +28,31 @@ const i18n = new I18n({
   directory: path.resolve(__dirname, 'locales')
 });
 
+// Scene flows
+const listCreationScene = new Scene('listCreationScene')
+listCreationScene.enter((ctx) => ctx.reply(ctx.i18n.t('createListInstr'), Extra.markup(Markup.forceReply())))
+listCreationScene.leave((ctx) => ctx.reply(ctx.i18n.t('createListCancel')))
+listCreationScene.hears(match('cancel'), leave())
+listCreationScene.on('message', (ctx) => {
+	ctx.reply(ctx.i18n.t('createListSuccess') + ctx.message.text + '.');
+})
+
+const flow = new TelegrafFlow(
+	[listCreationScene],
+	{ ttl: 10 } // Time before ignore the message.
+);
+
 // Bot MiddleWares
 bot.use(session.middleware()); // For saving on database
 bot.use(commandArgsMiddleware()); // For quering commands parameters.
 bot.use(i18n.middleware()); // For locale language settings
+bot.use(flow.middleware());
+
+// Gets and sets bot's name for being able to call it from groups.
+bot.telegram.getMe().then((botInfo) => {
+  bot.options.username = botInfo.username
+})
+
 
 // Bot logic goes above
 //=======================================================================
@@ -44,9 +70,9 @@ bot.hears(match('hi'), (ctx) => {
 
 // Settings commands-----------------------------------------------------
 // Changing the language
-bot.hears(match('language'), (ctx) => {
+bot.command('/language', (ctx) => {
 
-	const languageMenu = Telegraf.Extra
+	const languageMenu = Extra
 		  .markdown()
 		  .markup((m) => m.inlineKeyboard([
 		    m.callbackButton('🇺🇸 ' + ctx.i18n.t('english'), 'en'),
@@ -68,23 +94,27 @@ bot.action('en', (ctx) => {
 	ctx.reply(ctx.i18n.t('localeGreeting'))
 });
 
-// Seeing available options
-bot.hears(match('options'), (ctx) => {
+// List options
+bot.command('/list', (ctx) => {
 
-	const optionsMenu = Telegraf.Extra
+	const listOptionsMenu = Extra
 		  .markdown()
-		  .markup((m) => m.keyboard([
-		    m.callbackButton(ctx.i18n.t('language'), 'language'),
-				m.callbackButton(ctx.i18n.t('options'), 'options'),
-				m.callbackButton(ctx.i18n.t('about'), 'about'),
-		  ]).resize());
+		  .markup((m) => m.keyboard([[
+				m.callbackButton(ctx.i18n.t('createList'), 'createList'),
+				m.callbackButton(ctx.i18n.t('showList'), 'showList')],
+			[
+				m.callbackButton(ctx.i18n.t('addItem'), 'addItemToList'),
+				m.callbackButton(ctx.i18n.t('removeItem'), 'removeItemFromList')
+		  ]]).oneTime().resize());
 
-	ctx.reply(ctx.i18n.t('optionsInstr'), optionsMenu);
+	ctx.reply(ctx.i18n.t('listInstr'), listOptionsMenu);
 
 });
 
+bot.hears(match('createList'), (ctx) => ctx.flow.enter('listCreationScene'));
+
 // Prints about
-bot.hears(match('about'), (ctx) => {
+bot.command('/about', (ctx) => {
 	ctx.reply(ctx.i18n.t('aboutMessage'))
 });
 // Create list
