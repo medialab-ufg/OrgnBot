@@ -31,7 +31,9 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
-    "promise-mysql": "^3.0.0"
+    "promise-mysql": "^3.0.0",
+    "telegraf-flow": "^8.3.0",
+    "telegraf-i18n": "^6.0.4"
   },
   "peerDependencies": {
     "telegraf": "^3.0.0"
